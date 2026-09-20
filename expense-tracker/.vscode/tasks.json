@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install dependencies",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m pip install -r requirements-dev.txt && ${command:python.interpreterPath} -m pip install -e .",
+      "problemMatcher": []
+    },
+    {
+      "label": "Seed sample data",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m expense_tracker.cli seed",
+      "options": { "env": { "PYTHONPATH": "${workspaceFolder}/src" } },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run dashboard",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m streamlit run app/dashboard.py",
+      "options": { "env": { "PYTHONPATH": "${workspaceFolder}/src" } },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Run tests",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m pytest",
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint (ruff)",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m ruff check .",
+      "problemMatcher": []
+    }
+  ]
+}
